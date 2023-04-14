@@ -8,6 +8,9 @@ This is the NPM/Yarn package for implementing the Device Fingerprint Tracker API
 * [Device Fingerprint Overview](https://www.ipqualityscore.com/device-fingerprinting)
 * [Device Fingerprint API](https://www.ipqualityscore.com/documentation/device-fingerprint/overview)
 
+## Installation
+
+npm i node_js_ipqs_device_tracker
 
 ## Initialization
 
