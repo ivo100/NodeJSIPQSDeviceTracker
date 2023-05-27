@@ -19,7 +19,7 @@ To initialize the Device Tracker Package in React, you can do it in one of two w
 ### Asynchronously (recommended)
 
 ```javascript
-import DeviceFingerprint from 'ipqs-device-fingerprint-for-react';
+import DeviceFingerprint from 'node_js_ipqs_device_tracker';
 
 function App() {
     const secretKey = `YourSecretKey`;
