@@ -5,12 +5,12 @@ export const Init = () => {
     window.Startup.Init();
 };
 
-export const AfterResult = (resultCallback: () => void) => {
+export const AfterResult = (resultCallback: (result: any) => void) => {
     window.Startup.AfterResult(resultCallback);
 }
 
-export const AfterFailure = (resultCallback: () => void) => {
-    window.Startup.AfterFailure(resultCallback);
+export const AfterFailure = (errorCallback: (error: any) => void) => {
+    window.Startup.AfterFailure(errorCallback);
 }
 
 export const SetFormFieldPrepend = (prefix: string) => {
