@@ -16,7 +16,7 @@ let windowSpy;
 let initCalled: boolean;
 let setFormFieldPrefix: string;
 let deviceName: string;
-let deviceId: number;
+let deviceId: string;
 let deviceFieldName: string;
 let deviceElement: string;
 let pauseCalled: boolean;
@@ -32,7 +32,7 @@ describe('deviceFingerprintFunctions', () => {
         initCalled = false;
         setFormFieldPrefix = "";
         deviceName = "";
-        deviceId = 0;
+        deviceId = '1';
         deviceFieldName = "";
         deviceElement = "";
         pauseCalled = false;
@@ -51,7 +51,7 @@ describe('deviceFingerprintFunctions', () => {
                     const event = "event";
                     eventCb(event);
                 },
-                Store: (name: string, id: number) => {
+                Store: (name: string, id: string) => {
                     deviceName = name;
                     deviceId = id;
                 },

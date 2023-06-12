@@ -21,7 +21,7 @@ export const Trigger = (anchorTag: string, eventCallback?: (event:object) => voi
     window.Startup.Trigger(anchorTag, eventCallback);
 }
 
-export const Store = (name: string, id: number) => {
+export const Store = (name: string, id: string) => {
     window.Startup.Store(name, id);
 }
 

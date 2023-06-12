@@ -2,18 +2,21 @@ import module, {addDeviceTrackingTags, addDeviceTrackingTagsAsync} from "./domMa
 import { fireEvent } from '@testing-library/react';
 import {DEVICE_FINGERPRINT_SCRIPT_ID_ASYNC} from "./const";
 
+const secretKey = `testKey`;
+const domain = `example.com`;
+
 describe('domManipulation util', () => {
     afterEach(() => {
         document.getElementsByTagName('html')[0].innerHTML = '';
     });
     describe('addDeviceTrackingTags()', () => {
         it('should add all of the device tracking tags on the page', () => {
-            const secretKey = `testKey`;
-            addDeviceTrackingTags(secretKey);
+            addDeviceTrackingTags(domain,secretKey);
             const allHtml: string = document.head.parentElement.innerHTML;
             expect(allHtml).toContain('script');
             expect(allHtml).toContain('noscript');
             expect(allHtml).toContain('crossorigin="anonymous"');
+            expect(allHtml).toContain(domain);
             expect(allHtml).toContain(secretKey);
             expect(allHtml).toContain('img');
             expect(global.window["IPQ"].Callback).toBeTruthy();
@@ -21,8 +24,7 @@ describe('domManipulation util', () => {
     });
     describe('addDeviceTrackingTagsAsync()', () => {
         it('should add all of the device tracking tags on the page asynchronously (with load)', (done) => {
-            const secretKey = `testKey`;
-            addDeviceTrackingTagsAsync(secretKey).then(() => {
+            addDeviceTrackingTagsAsync(domain, secretKey).then(() => {
                 const allHtml: string = document.head.parentElement.innerHTML;
                 expect(allHtml).toContain('script');
                 expect(allHtml).toContain('noscript');
@@ -38,8 +40,7 @@ describe('domManipulation util', () => {
             fireEvent.load(scriptTag);
         });
         it('should add all of the device tracking tags on the page asynchronously (with error)', (done) => {
-            const secretKey = `testKey`;
-            addDeviceTrackingTagsAsync(secretKey).then(() => {
+            addDeviceTrackingTagsAsync(domain, secretKey).then(() => {
                 fail('We resolved the promise even though there was a loading error with the external script');
             }).catch(() => {
                 const allHtml: string = document.head.parentElement.innerHTML;
@@ -68,7 +69,6 @@ describe('domManipulation util', () => {
     });
     describe('getScriptTagLoadSrc()', () => {
         it('should add the script tag loader synchronously', () => {
-            const secretKey = `testKey`;
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             const fn = module.__get__('getScriptTagLoadSrc');
@@ -81,7 +81,6 @@ describe('domManipulation util', () => {
     });
     describe('getScriptTagLoadSrcAsync()', () => {
         it('should add the script tag loader asynchronously (onload success)', () => {
-            const secretKey = `testKey`;
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             const fn = module.__get__('getScriptTagLoadSrcAsync');
@@ -97,7 +96,6 @@ describe('domManipulation util', () => {
     });
     describe('getScriptTagLoadSrcAsync()', () => {
         it('should add the script tag loader asynchronously (onload error)', () => {
-            const secretKey = `testKey`;
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             const fn = module.__get__('getScriptTagLoadSrcAsync');
@@ -113,7 +111,6 @@ describe('domManipulation util', () => {
     });
     describe('getNoscriptTag()', () => {
         it('should add a noscript tag with the image child', () => {
-            const secretKey = `testKey`;
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             const fn = module.__get__('getNoscriptTag');
@@ -126,7 +123,6 @@ describe('domManipulation util', () => {
     });
     describe('generateImageTag()', () => {
         it('should generate an image tag with valid contents', () => {
-            const secretKey = `testKey`;
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             const fn = module.__get__('generateImageTag');

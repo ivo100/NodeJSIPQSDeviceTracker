@@ -10,24 +10,26 @@ This is the NPM/Yarn package for implementing the Device Fingerprint Tracker API
 
 ## Installation
 
-npm i node_js_ipqs_device_tracker
+npm i ipqs_device_tracker
 
 ## Initialization
 
-To initialize the Device Tracker Package in React, you can do it in one of two ways
+To initialize the Device Tracker Package, you can do it in one of two ways
 
 ### Asynchronously (recommended)
 
 ```javascript
-import DeviceFingerprint from 'node_js_ipqs_device_tracker';
+import DeviceFingerprint from 'ipqs_device_tracker';
 
 function App() {
+    const domain = `example.com`;
     const secretKey = `YourSecretKey`;
     useEffect(() => {
-        DeviceFingerprint.initializeScriptAsync(secretKey).then(() => {
+        DeviceFingerprint.initializeScriptAsync(domain, secretKey).then(() => {
             DeviceFingerprint.Init();
-        }).catch(() => {
+        }).catch((err) => {
             // Any errors loading the external script will be caught here
+            console.error(err);
         });
     });
 }
@@ -38,7 +40,7 @@ function App() {
 This is not recommended as this will not tell you when the external script has been loaded, nor will it be easy to catch any errors loading an external script
 
 ```javascript
-import DeviceFingerprint from 'ipqs-device-fingerprint-for-react';
+import DeviceFingerprint from 'ipqs_device_tracker';
 
 function App() {
     useEffect(() => {
@@ -60,7 +62,7 @@ function App() {
 Initializes the Device Tracker
 
 ```javascript
-DeviceFingerprint.initializeScriptAsync(secretKey).then(() => {
+DeviceFingerprint.initializeScriptAsync(domain, secretKey).then(() => {
     const callback = (result) => {
         console.log(result);
     }
@@ -74,7 +76,7 @@ DeviceFingerprint.initializeScriptAsync(secretKey).then(() => {
 Enables a callback function to be called when DeviceFingerprint.Init() succeeds
 
 ```javascript
-DeviceFingerprint.initializeScriptAsync(secretKey).then(() => {
+DeviceFingerprint.initializeScriptAsync(domain, secretKey).then(() => {
     const callback = (result) => {
         console.log(result);
     }
@@ -88,7 +90,7 @@ DeviceFingerprint.initializeScriptAsync(secretKey).then(() => {
 Enables a callback function to be called when DeviceFingerprint.Init() fails
 
 ```javascript
-DeviceFingerprint.initializeScriptAsync(secretKey).then(() => {
+DeviceFingerprint.initializeScriptAsync(domain, secretKey).then(() => {
     const callback = (result) => {
         console.log(result);
     }
@@ -102,7 +104,7 @@ DeviceFingerprint.initializeScriptAsync(secretKey).then(() => {
 Pauses the Device Tracker
 
 ```javascript
-DeviceFingerprint.initializeScriptAsync(secretKey).then(() => {
+DeviceFingerprint.initializeScriptAsync(domain, secretKey).then(() => {
     DeviceFingerprint.Init();
     DeviceFingerprint.Pause();
 });
@@ -113,7 +115,7 @@ DeviceFingerprint.initializeScriptAsync(secretKey).then(() => {
 Resumes the Device Tracker. This works in conjunction with `Resume()`
 
 ```javascript
-DeviceFingerprint.initializeScriptAsync(secretKey).then(() => {
+DeviceFingerprint.initializeScriptAsync(domain, secretKey).then(() => {
     DeviceFingerprint.Init();
     DeviceFingerprint.Pause();
     DeviceFingerprint.Resume();
@@ -129,7 +131,7 @@ If used in conjunction with `AfterResult()`, you will not fire the result callba
 This must be called before `Init()`
 
 ```javascript
-DeviceFingerprint.initializeScriptAsync(secretKey).then(() => {
+DeviceFingerprint.initializeScriptAsync(domain, secretKey).then(() => {
     const formId = "someFormId";
     const callback = (event) => {
         event.preventDefault();
@@ -152,7 +154,7 @@ Sets the Form Field Prepend prefix for form submission triggers.
 This works in conjunction with `Trigger()` and must be called before `Init()`
 
 ```javascript
-DeviceFingerprint.initializeScriptAsync(secretKey).then(() => {
+DeviceFingerprint.initializeScriptAsync(domain, secretKey).then(() => {
     const prefix = "somePrefix";
     DeviceFingerprint.SetFormFieldPrepend(prefix);
     
@@ -176,7 +178,7 @@ DeviceFingerprint.initializeScriptAsync(secretKey).then(() => {
 Allows you to specify additional fields for order submission and payment processing
 
 ```javascript
-DeviceFingerprint.initializeScriptAsync(secretKey).then(() => {
+DeviceFingerprint.initializeScriptAsync(domain, secretKey).then(() => {
     const fieldName = "someField";
     const fieldId = "#someFieldId";
     DeviceFingerprint.Field(fieldName, fieldId);
